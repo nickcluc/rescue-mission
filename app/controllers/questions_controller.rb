@@ -4,10 +4,16 @@ class QuestionsController < ApplicationController
   end
 
   def new
-
   end
 
   def create
-    question = Question.new(params)
+    question = Question.new(question_params)
+    question.save
+    redirect_to '/questions'
+  end
+
+  private
+  def question_params
+    params.require(:question).permit(:title, :description, :user_id)
   end
 end

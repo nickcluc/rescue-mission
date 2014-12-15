@@ -1,0 +1,11 @@
+<form action="/questions" method="post">
+  <label for="question_title">Question Title</label><br>
+  <input id="question_title" name="question[title]" type="text" />
+
+  <label for="question_description">Description</label><br>
+  <textarea id="question_description" name="question[description]">
+  </textarea>
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+  <input name="question[user_id]" type="hidden" value=1 />
+  <input name="commit" type="submit" value="Create Question" />
+</form>
