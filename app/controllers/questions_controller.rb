@@ -9,8 +9,6 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    require 'pry'
-    binding.pry
     question = Question.new(question_params)
     question.save!
     redirect_to '/questions'
