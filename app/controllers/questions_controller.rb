@@ -4,4 +4,22 @@ class QuestionsController < ApplicationController
     @questions = Question.all
   end
 
+  def new
+
+  end
+
+  def create
+    require 'pry'
+    binding.pry
+    question = Question.new(question_params)
+    question.save!
+    redirect_to '/questions'
+  end
+
+  private
+
+  def question_params
+    params.require(:question).permit(:user_id, :title, :description)
+  end
+
 end
