@@ -23,7 +23,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:user_id, :question_id, :description)
+    params.require(:answer).permit(:user_id, :question_id, :description, :favorite)
   end
 
 

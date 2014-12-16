@@ -3,6 +3,9 @@
 <p>
   <%= markdown(@question.description) %>
 </p>
+<p>
+  <%= link_to 'Edit Question', edit_question_path %>
+</p>
 
 <%= form_for(@answer) do |f| %>
 
@@ -33,13 +36,33 @@
 
 <% end %>
 
-<h2>Answers:</h2>
+
+
+<% unless @question.best_answer == nil %>
+  <h2>Best Answer</h2>
+  <p>
+    <%= markdown(@best_answer.description) %>
+  </p>
+<% end %>
+
+<h4>Other Answers:</h4>
+
 <ul>
   <% @answers.each do |answer| %>
-  <li wrap=hard><%= markdown(answer.description) %></li>
+  <li>
+    <%= markdown(answer.description) %>
+    <%= form_for(@question) do |f| %>
+      <div class="field">
+        <%= f.hidden_field :best_answer, :value => answer.id %>
+      </div>
+      <div class="actions">
+        <%= f.submit 'Mark As Best Answer' %>
+      </div>
+    <% end %>
+  </li>
   <% end %>
 </ul>
 
-<%= button_to "delete", @question, :method=>:delete, :class=>:destroy %>
+<%= button_to "Delete", @question, :method=>:delete, :class=>:destroy %>
 
 <a href="/questions">Back to Questions</a>

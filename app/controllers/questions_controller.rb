@@ -23,6 +23,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find( params[:id] )
+    @best_answer = Answer.find(@question.best_answer)
     @answers = @question.answers.order("created_at DESC")
     @answer = Answer.new
   end
@@ -49,7 +50,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:user_id, :title, :description)
+    params.require(:question).permit(:user_id, :title, :description, :best_answer)
   end
 
 end
