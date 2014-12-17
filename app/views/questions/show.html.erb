@@ -39,11 +39,9 @@
 
 
 <% unless @question.best_answer == nil %>
-  <h2>Best Answer</h2>
-  <p>
-    <%= markdown(@best_answer.description) %>
-  </p>
+  <%= markdown(Answer.find(@question.best_answer).description) %>
 <% end %>
+
 
 <h4>Other Answers:</h4>
 

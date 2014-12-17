@@ -4,4 +4,10 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers
   end
+  
+  get "/auth/:provider/callback" => "sessions#create"
+
+  get "/signout" => "sessions#destroy", :as => :signout
+
+  root to: 'questions#index'
 end

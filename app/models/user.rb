@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
-  has_many :questions
-  has_many :answers
-
-  validates :name, presence: true
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      puts "DEBUG " + "=" * 50
+      # p auth
+      user.provider = auth["provider"]
+      user.uid = auth["uid"]
+      user.name = auth["info"]["name"]
+    end
+  end
 end
