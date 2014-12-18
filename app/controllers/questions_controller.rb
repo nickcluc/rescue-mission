@@ -1,7 +1,7 @@
 
 class QuestionsController < ApplicationController
   def index
-    @questions = Question.all
+    @questions = Question.order('created_at DESC')
   end
 
   def new
@@ -13,10 +13,27 @@ class QuestionsController < ApplicationController
     if question.save
       redirect_to '/questions'
     else
-      # binding.pry
       @question = question
       render action: 'new'
     end
+  end
+
+  def update
+    @question = Question.update(params[:id], question_params)
+    if @question.save
+      redirect_to "/questions/#{@question.id}"
+    else
+      render action: 'edit'
+    end
+  end
+
+  def show
+    @question = Question.find(params[:id])
+    @answer ||= Answer.new
+  end
+
+  def edit
+    @question = Question.find(params[:id])
   end
 
   private

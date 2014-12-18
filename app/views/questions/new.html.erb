@@ -1,26 +1,18 @@
+<% if current_user %>
+  <h1>Ask a Question</h1>
+  <%= form_for @question do |f| %>
+    <%= f.label :title %>:
+    <%= f.text_field :title %><br />
 
-<h1>Ask a Question</h1>
+    <%= f.label :description %>:
+    <%= f.text_area :description %><br />
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.submit %>
+  <% end %>
+<% else %>
+  <p>You must be logged in to post a question</p>
+<%end%>
 
-<%= form_for @question do |f| %>
-<%= f.label :title %>:
-<%= f.text_field :title %><br />
-
-<%= f.label :description %>:
-<%= f.text_area :description %><br />
-<%= f.submit %>
-<% end %>
-
-<form id="question" action="/questions" method="post">
-  <label for="question_title">Title:</label>
-  <input type="text" name="question[title]" id="question_title">
-  <label for="question_description">Description:</label>
-  <input type="text" name="question[description]" id="question_description">
-  <input type="text" name="question[user_id]" value="1" hidden>
-  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
-  <input type="submit">
-
-
-</form>
 <% unless @question.nil? %>
 <% @question.errors.full_messages.each do |error| %>
   <p><%= error %></p>
